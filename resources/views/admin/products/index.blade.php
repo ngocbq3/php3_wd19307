@@ -33,7 +33,7 @@
                         </td>
                         <td>{{ $product->price }}</td>
                         <td>{{ $product->stock }}</td>
-                        <td>{{ $product->cate_name }}</td>
+                        <td>{{ $product->category->name }}</td>
                         <td>
                             <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-primary">Edit</a>
 
