@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductController;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -51,9 +52,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProductController $request)
     {
         // $data = $request->except('_token'); //Sử cho Query builder
+
         $data = $request->all();
 
         //xử lý file
