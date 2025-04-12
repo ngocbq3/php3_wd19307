@@ -3,10 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MyProductController;
 use App\Http\Controllers\ProductController;
-
+use App\Http\Middleware\CheckRole;
 
 Route::get('/', function () {
     return view('welcome');
@@ -72,7 +73,12 @@ Route::get('/category/{id}', [CategoryController::class, 'list'])->name('categor
 
 
 //Admin
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('/products', AdminProductController::class);
+Route::middleware(['auth', 'check.role:admin'])->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('/products', AdminProductController::class);
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::put('/users/{id}/update-role', [UserController::class, 'updateRole'])->name('users.updateRole');
+    });
 });
+
 require __DIR__ . '/auth.php';
